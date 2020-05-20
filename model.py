@@ -8,6 +8,7 @@
 from exts import db
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+
 class Users(db.Model):
     __tablername__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
