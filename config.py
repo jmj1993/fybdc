@@ -27,6 +27,7 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
         DATABASE
     )
 
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 # class Config:
 #
@@ -53,4 +54,3 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
 #     # 便于调试
 #     TEMPLATES_AUTO_RELOAD = True
 #     SEND_FILE_MAX_AGE_DEFAULT = 0
-#     SQLALCHEMY_TRACK_MODIFICATIONS = True

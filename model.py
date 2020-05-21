@@ -5,24 +5,42 @@
 # @Date  : 2020/5/19
 # @Desc  :
 
+from flask_login import UserMixin
+from flask_login._compat import unicode
+
 from exts import db
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 
-class Users(db.Model):
+class Users(db.Model,UserMixin):
     __tablername__ = 'users'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     tel = db.Column(db.String(11))
     #0 法院 1 不动产
     userid = db.Column(db.Boolean(), default=1, nullable=False)
 
-    def set_password(self, pwd):
-        self.password = generate_password_hash(pwd)
+    @property
+    def password(self):
+        raise ArithmeticError ('密码不可读')
 
-    def check_password(self, pwd):
-        return check_password_hash(self.password, pwd)
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+    def is_authenticated(self):
+        return True
+    def is_active(self):
+        return True
+    def is_anonymous(self):
+        return True
+    def get_id(self):
+        return unicode(self.id)
 
 
 class Orders(db.Model):

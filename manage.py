@@ -12,7 +12,7 @@ from app import app
 from model import Users,Logs,Orders
 
 
-db.init_app(app)
+
 manager = Manager(app)
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
