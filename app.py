@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from model import Users
 from fy import fy
 from bdc import bdc
@@ -27,7 +27,13 @@ def load_user(id):
 
 @app.route('/')
 def home():
-    return render_template('login.html')
+    try:
+        uid = current_user.name
+        if uid:
+            print(uid)
+            return redirect(url_for(uid + '.hello'))
+    except:
+        return render_template('login.html')
 
 @app.route('/login',methods=['GET','POST'])
 def login():
@@ -46,7 +52,10 @@ def login():
             flash('账号或者密码错误')
             return render_template('login.html')
     if request.method == 'GET':
-        return render_template('login.html')
+        return redirect(url_for('home'))
+
+
+
 
 @app.route('/logout',methods=['GET','POST'])
 @login_required
