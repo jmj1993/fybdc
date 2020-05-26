@@ -30,7 +30,7 @@ def home():
     try:
         uid = current_user.name
         if uid:
-            print(uid)
+            # print(uid)
             return redirect(url_for(uid + '.hello'))
     except:
         return render_template('login.html')

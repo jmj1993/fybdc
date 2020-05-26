@@ -6,7 +6,7 @@
 # @Desc  :
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import Blueprint
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 fy = Blueprint('fy',__name__)
 
@@ -15,3 +15,12 @@ fy = Blueprint('fy',__name__)
 @login_required
 def hello():
     return render_template('index.html')
+
+
+@fy.route('/fy/corder',methods=['GET','POST'])
+@login_required
+def corder():
+    if request.method == 'GET':
+        return render_template("corder.html")
+    if request.method == 'POST':
+        return 'baibai'
