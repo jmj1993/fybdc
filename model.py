@@ -48,6 +48,13 @@ class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     #0新创建待审批 1已审批 2新提交待确认 3 已确认
     stats = db.Column(db.Integer, default=0, nullable=False)
+    #0 查询 1查封
+    orderid = db.Column(db.Integer, default=0, nullable=False)
+    #查询或者查封主体标识（身份证号码）
+    idcard = db.Column(db.String(18), nullable=False)
+    filepath = db.Column(db.String(100))
+    #备注
+    remake = db.Column(db.String(200))
     create_time = db.Column(db.DateTime, default=datetime.datetime)
 
 class Logs(db.Model):

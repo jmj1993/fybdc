@@ -1,7 +1,79 @@
 {% extends "index.html" %}
 
-{% block main %}.
+{% block main %}
+    <div style="padding: 50px 15px;">
 
-    dfasfsdg
+<form class="layui-form" action="" lay-filter="example">
+<div class="layui-form-item">
+    <label class="layui-form-label" style="width: 130px">被查询人身份证号:</label>
+    <div class="layui-input-inline" style="width: 500px">
+      <input type="text" name="title" required  lay-verify="required" placeholder="身份证号" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label"  style="width: 120px">请选择申请类别:</label>
+    <div class="layui-input-inline" style="width: 500px">
+      <select name="city" lay-verify="required">
+        <option value=""></option>
+        <option value="0">查询申请</option>
+        <option value="1">查封申请</option>
+      </select>
+    </div>
+  </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">附件</label>
+        <div class="layui-input-inline" style="width: 500px">
+      <button type="button" class="layui-btn" id="test1">
+  <i class="layui-icon">&#xe67c;</i>上传附件
+</button>
+        </div>
+
+    </div>
+
+
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">备注</label>
+    <div class="layui-input-block">
+      <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+
+<script src="/static/layui/layui.js"></script>
+{#<script src="/static/js/jquery-3.1.1.js"></script>#}
+    <script>
+//Demo
+layui.use(['form','upload'], function(){
+  var form = layui.form;
+  var upload = layui.upload;
+
+
+  var uploadInst = upload.render({
+    elem: '#test1' //绑定元素
+      ,accept:'file'
+      ,size : '50'
+    ,url: '/upload/' //上传接口
+    ,done: function(res){
+      //上传完毕回调
+    }
+    ,error: function(){
+      //请求异常回调
+    }
+  });
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    return false;
+  });
+});
+</script>
  {% endblock %}
 
