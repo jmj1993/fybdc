@@ -55,7 +55,7 @@ class Orders(db.Model):
     filepath = db.Column(db.String(100))
     #备注
     remake = db.Column(db.String(200))
-    create_time = db.Column(db.DateTime, default=datetime.datetime)
+    create_time = db.Column(db.DateTime, default=datetime.datetime.now())
 
 class Logs(db.Model):
     __tablename__ = 'logs'

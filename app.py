@@ -1,4 +1,9 @@
+
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from werkzeug.utils import secure_filename
+
 from model import Users
 from fy import fy
 from bdc import bdc
@@ -63,6 +68,25 @@ def logout():
     logout_user()
     flash('已退出')
     return  render_template('login.html')
+
+
+@app.route('/upload',methods=['GET','POST'])
+def upload():
+    if request.method == 'POST':
+        f = request.files["file"]
+        upload_path = os.path.join(basedir, 'static/upload/')
+        file_name = upload_path + secure_filename(f.filename)
+        f.save(file_name)
+        res = {
+            "code" : 0,
+            "msg" :"附件上传成功",
+            "src" : f.filename
+
+        }
+        return res
+
+
+
 
 if __name__ == '__main__':
     app.run()
