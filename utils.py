@@ -10,8 +10,8 @@ from werkzeug.utils import secure_filename
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-def upload(f):
-    upload_path = os.path.join(basedir, 'static/upload/')
+def upload(f,s):
+    upload_path = os.path.join(basedir, 'static/upload/'+s)
     file_name = upload_path + secure_filename(f.filename)
     f.save(file_name)
     return secure_filename(f.filename)

@@ -73,10 +73,10 @@
           <span class="layui-badge layui-bg-blue layuiadmin-badge">周</span>
         </div>
         <div class="layui-card-body layuiadmin-card-list">
-          <p class="layuiadmin-big-font" style="font-size: 36px">17</p>
+          <p class="layuiadmin-big-font" style="font-size: 36px">{{ allord-3 }}</p>
           <p>
             总计工单数
-            <span class="layuiadmin-span-color">263 <i class="layui-icon">&#xe66c;</i></span>
+            <span class="layuiadmin-span-color">{{ allord }} <i class="layui-icon">&#xe66c;</i></span>
           </p>
         </div>
       </div>
@@ -141,20 +141,39 @@
     <tr>
       <th>编号</th>
       <th>创建时间时间</th>
-      <th>状态</th>
+      <th>请求类型</th>
+      <th>请求状态</th>
+      <th>请求主编码</th>
+      <th>附件路径</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>2016-11-29</td>
-      <td>2</td>
+  {% for ord in ords %}
+  <tr>
+      <td>{{ ord.id }}</td>
+      <td>{{ ord.create_time }}</td>
+      <td>{% if ord.orderid == 0  %}
+      查封申请
+          {% elif ord.orderid == 1  %}
+          查询申请
+      {% endif %}
+      </td>
+      <td>
+          {% if ord.stats == 0  %}
+              新建查询单
+          {% elif ord.stats == 1  %}
+              已审批
+          {% elif ord.stats == 2  %}
+              新建查封单
+          {% elif ord.stats == 3  %}
+              审批结束
+      {% endif %}
+      </td>
+      <td>{{ ord.idcard }}</td>
+      <td>{{ ord.filepath }}</td>
     </tr>
-    <tr>
-      <td>3</td>
-      <td>2016-11-28</td>
-      <td>4，4，4…</td>
-    </tr>
+  {% endfor %}
+
   </tbody>
 </table>
 
